@@ -15,7 +15,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 init() {
-  if [ -n "$CC" ]; then
+  # Assign default value if unset or null (ensures it is never null)
+  : "${CC:=gcc}"
+
+  if [ "$CC" != "gcc" ]; then
     # store travis CC
     TRAVIS_CC=$CC
     # reset to gcc for building arch packages
