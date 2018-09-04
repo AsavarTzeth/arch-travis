@@ -65,7 +65,7 @@ upgrade_system() {
 # install packages defined in .travis.yml
 install_packages() {
   for package in "${CONFIG_PACKAGES[@]}"; do
-    yay -S $package --noconfirm
+    sudo pacman -S $package --noconfirm
   done
 }
 
@@ -84,7 +84,7 @@ build_scripts() {
 
 install_c_compiler() {
   if [ "$TRAVIS_CC" != "gcc" ]; then
-    yay -S "$TRAVIS_CC" --noconfirm
+    sudo pacman -S "$TRAVIS_CC" --noconfirm
   fi
 }
 

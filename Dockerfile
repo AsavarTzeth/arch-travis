@@ -41,14 +41,6 @@ RUN \
 
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/core_perl
 
-# install cower and pacaur
-RUN \
-    cd /home/$UGNAME && \
-    curl -O -s https://aur.archlinux.org/cgit/aur.git/snapshot/yay-bin.tar.gz && \
-    tar xf yay-bin.tar.gz && \
-    cd yay-bin && makepkg -is --skippgpcheck --noconfirm && cd .. && \
-    rm -rf yay-bin && rm yay-bin.tar.gz
-
 # Add arch-travis script
 COPY init.sh /usr/bin/arch-travis
 
