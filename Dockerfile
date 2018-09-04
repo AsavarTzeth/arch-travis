@@ -1,6 +1,6 @@
 # Build Archlinux packages with drone
 #
-#     docker build --rm=true -t asavartzeth/arch-travis .
+#     docker build --rm=true -t asavartzeth/arch-travis:latest .
 
 FROM archimg/base-devel:latest
 MAINTAINER Patrik Nilsson <asavartzeth@gmail.com>
