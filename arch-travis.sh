@@ -39,7 +39,11 @@ CONFIG_REPOS=$(encode_config arch repos)
 # force pull latest
 docker pull asavartzeth/arch-travis:latest
 
-docker run --rm -v $(pwd):/build \
+cwd="$(pwd)"
+
+docker run --rm \
+    -v "${cwd}":/build \
+    -v "${cwd}/data_volumes/var/cache/pacman/pkg":/var/cache/pacman/pkg \
     -e CC=$CC \
     -e CONFIG_BUILD_SCRIPTS="$CONFIG_BUILD_SCRIPTS" \
     -e CONFIG_PACKAGES="$CONFIG_PACKAGES" \

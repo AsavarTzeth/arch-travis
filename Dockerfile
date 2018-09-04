@@ -34,4 +34,7 @@ COPY contrib/etc/sudoers.d/travis /etc/sudoers.d/travis
 # Add arch-travis script
 COPY init.sh /usr/bin/arch-travis
 
+# Simplify Travis CI caching
+VOLUME ["/var/cache/pacman/pkg"]
+
 ENTRYPOINT ["/usr/bin/arch-travis"]
