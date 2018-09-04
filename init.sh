@@ -14,9 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# /etc/pacman.conf repository line
-repo_line=70
-
 init() {
   if [ -n "$CC" ]; then
     # store travis CC
@@ -42,6 +39,9 @@ read_config() {
 
 # add custom repositories to pacman.conf
 add_repositories() {
+  # /etc/pacman.conf repository line
+  local repo_line='70'
+  
   if [ ${#CONFIG_REPOS[@]} -gt 0 ]; then
     for r in "${CONFIG_REPOS[@]}"; do
       local splitarr=(${r//=/ })
