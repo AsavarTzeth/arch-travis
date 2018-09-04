@@ -1,5 +1,12 @@
 #!/bin/bash
+
+# Original work:
 # Copyright (C) 2018  Mikkel Oscar Lyderik Larsen
+#
+# Derivative work:
+# Copyright (C) 2018 Patrik Nilsson
+# As mandated by the GPL3, all modifications to the original work
+# are provided under the same license and conditions.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

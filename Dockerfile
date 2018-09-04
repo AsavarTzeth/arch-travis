@@ -3,7 +3,7 @@
 #     docker build --rm=true -t mikkeloscar/arch-travis .
 
 FROM archlinux/base:latest
-MAINTAINER Mikkel Oscar Lyderik Larsen <m@moscar.net>
+MAINTAINER Patrik Nilsson <asavartzeth@gmail.com>
 
 # Setup build user/group
 ENV UGID='2000' UGNAME='travis'
