@@ -2,7 +2,7 @@
 #
 #     docker build --rm=true -t mikkeloscar/arch-travis .
 
-FROM archlinux/base:latest
+FROM archimg/base-devel:latest
 MAINTAINER Patrik Nilsson <asavartzeth@gmail.com>
 
 # Setup build user/group
@@ -21,7 +21,6 @@ RUN cat /etc/pacman.d/mirrorlist
 RUN \
     # Update
     pacman -Syu \
-        base-devel \
         git \
         reflector \
         --noconfirm && \
