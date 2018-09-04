@@ -37,7 +37,7 @@ CONFIG_PACKAGES=$(encode_config arch packages)
 CONFIG_REPOS=$(encode_config arch repos)
 
 # force pull latest
-docker pull mikkeloscar/arch-travis
+docker pull asavartzeth/arch-travis
 
 docker run --rm -v $(pwd):/build \
     -e CC=$CC \
@@ -45,4 +45,4 @@ docker run --rm -v $(pwd):/build \
     -e CONFIG_PACKAGES="$CONFIG_PACKAGES" \
     -e CONFIG_REPOS="$CONFIG_REPOS" \
     $(ruby -e 'ENV.each {|key,_| if not ["PATH","USER","HOME"].include?(key) then puts "-e #{key}" end}') \
-    mikkeloscar/arch-travis
+    asavartzeth/arch-travis
