@@ -11,13 +11,18 @@ RUN useradd \
       --uid '2000' \
       --shell /usr/bin/false 'travis'
 
-RUN \
-    # Update
-    pacman -Syu \
+# Compliment archimg/base-devel build environment
+RUN pacman -Syu \
+      --noconfirm \
+      --needed \
+      --noprogressbar \
+      --verbose \
         git \
-        --noconfirm && \
+        meson && \
     # Clean .pacnew files
-    find / -name "*.pacnew" -exec rename .pacnew '' '{}' \;
+    find / -name "*.pacnew" -exec rename .pacnew '' '{}' \; && \
+    # Clean package cache
+    yes | pacman -Scc
 
 USER travis
 
