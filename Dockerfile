@@ -2,7 +2,7 @@
 #
 #     docker build --rm=true -t asavartzeth/arch-travis .
 
-FROM archlinux/base:latest
+FROM archimg/base-devel:latest
 MAINTAINER Patrik Nilsson <asavartzeth@gmail.com>
 
 # Setup build user/group
@@ -21,9 +21,7 @@ RUN cat /etc/pacman.d/mirrorlist
 RUN \
     # Update
     pacman -Syu \
-        base-devel \
         git \
-        reflector \
         --noconfirm && \
     # Clean .pacnew files
     find / -name "*.pacnew" -exec rename .pacnew '' '{}' \;
@@ -33,11 +31,6 @@ RUN \
     chmod 'u=rw,g=r,o=r' /etc/pacman.conf
 
 USER $UGNAME
-
-RUN \
-    sudo reflector --verbose -l 10 \
-        --sort rate --save /etc/pacman.d/mirrorlist && \
-    sudo pacman -Rs reflector --noconfirm
 
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/core_perl
 
