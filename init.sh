@@ -30,9 +30,9 @@ repo_line=70
 read_config() {
   local old_ifs=$IFS
   local sep='::::'
-  CONFIG_BUILD_SCRIPTS=${CONFIG_BUILD_SCRIPTS//$sep/$'\n'}
-  CONFIG_PACKAGES=${CONFIG_PACKAGES//$sep/$'\n'}
-  CONFIG_REPOS=${CONFIG_REPOS//$sep/$'\n'}
+  CONFIG_BUILD_SCRIPTS=${CONFIG_BUILD_SCRIPTS//$sep/\$'\n'}
+  CONFIG_PACKAGES=${CONFIG_PACKAGES//$sep/\$'\n'}
+  CONFIG_REPOS=${CONFIG_REPOS//$sep/\$'\n'}
   IFS=$'\n'
   CONFIG_BUILD_SCRIPTS=(${CONFIG_BUILD_SCRIPTS[@]})
   CONFIG_PACKAGES=(${CONFIG_PACKAGES[@]})
