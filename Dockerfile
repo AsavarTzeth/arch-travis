@@ -13,10 +13,6 @@ RUN \
 
 # copy sudoers file
 COPY contrib/etc/sudoers.d/$UGNAME /etc/sudoers.d/$UGNAME
-# Add pacman.conf template
-COPY contrib/etc/pacman.conf /etc/pacman.conf
-
-RUN cat /etc/pacman.d/mirrorlist
 
 RUN \
     # Update
@@ -27,8 +23,7 @@ RUN \
     find / -name "*.pacnew" -exec rename .pacnew '' '{}' \;
 
 RUN \
-    chmod 'u=r,g=r,o=' /etc/sudoers.d/$UGNAME && \
-    chmod 'u=rw,g=r,o=r' /etc/pacman.conf
+    chmod 'u=r,g=r,o=' /etc/sudoers.d/$UGNAME
 
 USER $UGNAME
 
