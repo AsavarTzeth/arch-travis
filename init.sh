@@ -17,13 +17,6 @@
 init() {
   # Assign default value if unset or null (ensures it is never null)
   : "${CC:=gcc}"
-
-  if [ "$CC" != "gcc" ]; then
-    # store travis CC
-    TRAVIS_CC=$CC
-    # reset to gcc for building arch packages
-    CC=gcc
-  fi
 }
 
 # read arch-travis config from env
@@ -85,12 +78,6 @@ build_scripts() {
   fi
 }
 
-install_c_compiler() {
-  if [ "$TRAVIS_CC" != "gcc" ]; then
-    sudo pacman -S "$TRAVIS_CC" --noconfirm --needed
-  fi
-}
-
 arch_msg() {
   lightblue='\033[1;34m'
   reset='\e[0m'
@@ -104,6 +91,11 @@ main() {
 
   read_config
 
+  # If custom compiler is defined, add it to packages to install
+  if [[ "${CC}" != 'gcc' ]]; then
+    CONFIG_PACKAGES+="${CC}"
+  fi
+
   echo "travis_fold:start:arch_travis"
   arch_msg "Setting up Arch environment"
   add_repositories
@@ -111,12 +103,6 @@ main() {
   upgrade_system
   install_packages
 
-  if [ -n "$CC" ]; then
-    install_c_compiler
-
-    # restore CC
-    CC=$TRAVIS_CC
-  fi
   echo "travis_fold:end:arch_travis"
   echo ""
 
