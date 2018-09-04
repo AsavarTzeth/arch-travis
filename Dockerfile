@@ -5,14 +5,11 @@
 FROM archimg/base-devel:latest
 MAINTAINER Patrik Nilsson <asavartzeth@gmail.com>
 
-# Setup build user/group
-ENV UGID='2000' UGNAME='travis'
-RUN \
-    groupadd --gid "$UGID" "$UGNAME" && \
-    useradd --create-home --uid "$UGID" --gid "$UGID" --shell /usr/bin/false "${UGNAME}"
-
-# copy sudoers file
-COPY contrib/etc/sudoers.d/$UGNAME /etc/sudoers.d/$UGNAME
+# Setup build user/group with limited sudo access
+RUN useradd \
+      --create-home \
+      --uid '2000' \
+      --shell /usr/bin/false 'travis'
 
 RUN \
     # Update
@@ -22,12 +19,12 @@ RUN \
     # Clean .pacnew files
     find / -name "*.pacnew" -exec rename .pacnew '' '{}' \;
 
-RUN \
-    chmod 'u=r,g=r,o=' /etc/sudoers.d/$UGNAME
-
-USER $UGNAME
+USER travis
 
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/core_perl
+
+# Copy sudoers file
+COPY contrib/etc/sudoers.d/travis /etc/sudoers.d/travis
 
 # Add arch-travis script
 COPY init.sh /usr/bin/arch-travis

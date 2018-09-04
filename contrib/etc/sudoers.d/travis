@@ -1,1 +1,4 @@
-travis ALL=(ALL) NOPASSWD: ALL
+Cmnd_Alias CMD = /usr/bin/pacman, \
+                 /usr/bin/sed
+
+travis ALL=(root) NOPASSWD: CMD
