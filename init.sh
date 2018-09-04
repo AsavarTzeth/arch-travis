@@ -14,17 +14,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-cd /build
-
-if [ -n "$CC" ]; then
-  # store travis CC
-  TRAVIS_CC=$CC
-  # reset to gcc for building arch packages
-  CC=gcc
-fi
-
 # /etc/pacman.conf repository line
 repo_line=70
+
+init() {
+  if [ -n "$CC" ]; then
+    # store travis CC
+    TRAVIS_CC=$CC
+    # reset to gcc for building arch packages
+    CC=gcc
+  fi
+}
 
 # read arch-travis config from env
 read_config() {
@@ -94,23 +94,31 @@ arch_msg() {
   echo -e "${lightblue}$@${reset}"
 }
 
-read_config
+main() {
+  cd /build
 
-echo "travis_fold:start:arch_travis"
-arch_msg "Setting up Arch environment"
-add_repositories
+  init
 
-upgrade_system
-install_packages
+  read_config
 
-if [ -n "$CC" ]; then
-  install_c_compiler
+  echo "travis_fold:start:arch_travis"
+  arch_msg "Setting up Arch environment"
+  add_repositories
 
-  # restore CC
-  CC=$TRAVIS_CC
-fi
-echo "travis_fold:end:arch_travis"
-echo ""
+  upgrade_system
+  install_packages
 
-arch_msg "Running travis build"
-build_scripts
+  if [ -n "$CC" ]; then
+    install_c_compiler
+
+    # restore CC
+    CC=$TRAVIS_CC
+  fi
+  echo "travis_fold:end:arch_travis"
+  echo ""
+
+  arch_msg "Running travis build"
+  build_scripts
+}
+
+main
