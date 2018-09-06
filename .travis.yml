@@ -14,11 +14,9 @@ arch:
   - archlinuxfr=http://repo.archlinux.fr/$arch
   packages:
   - procps-ng
-  - reflector
   - screenfetch-git
   script:
   - sudo screenfetch
-  - reflector --verbose -l 20 --sort rate -p https
   - echo $CC
   - touch test_file
 
